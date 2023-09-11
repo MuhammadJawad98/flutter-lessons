@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:untitled6/widgets/custom_elevated_button.dart';
+import 'package:untitled6/widgets/custom_textfield.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,26 +42,88 @@ class MyFirstScreen extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-               TextField(
-                  controller: emailController,
-                  decoration: InputDecoration(hintText: 'Email')),
+              CustomTextField(
+                controller: emailController,
+                hintText: 'Email',
+                onChanged: (val) {
+                  print('email: $val');
+                },
+              ),
               const SizedBox(height: 10),
-               TextField(
+              CustomTextField(
                   controller: passwordController,
-                  decoration: InputDecoration(hintText: 'Password')),
+                  hintText: 'Password',
+                  obsureText: true),
               const SizedBox(height: 10),
-              ElevatedButton(onPressed: () {
-                print('Email: ${emailController.text}');
-                print('Password: ${passwordController.text}');
-              }, child: const Text('Submit')),
-              TextButton(onPressed: (){}, child: Text('Submit')),
-              IconButton(onPressed: (){}, icon: Icon(Icons.add)),
-              CloseButton(),
-              //your task is to explore the scafold properties like appbar,
-              //body, bottomnavigation,floating button etc
-              // also you need to make a sign in and login screen
+              // Align(
+              //   alignment: Alignment.centerLeft,
+              //   child: ElevatedButton.icon(
+              //     onPressed: () {
+              //       print('Email: ${emailController.text}');
+              //       print('Password: ${passwordController.text}');
+              //     },
+              //     icon: Icon(Icons.home),
+              //     label: Text('Submit'),
+              //   ),
+              // ),
+              CustomElevatedButton(
+                  label: 'Submit',
+                  icon: const Icon(Icons.calendar_month),
+                  onTap: () {
+                    print('clicked.....');
+                  }),
+              CustomElevatedButton(
+                  label: 'Login',
+                  icon: const Icon(Icons.login),
+                  onTap: () {
+                    print('login.....');
+                  }),
+              const Text(
+                'My name is Jawad. I am a software engineer in Pakistan',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
+                color: Colors.redAccent),
+              ),
             ],
           ),
         ));
+  }
+}
+
+class SecondScreen extends StatefulWidget {
+  const SecondScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SecondScreen> createState() => _SecondScreenState();
+}
+
+class _SecondScreenState extends State<SecondScreen> {
+  int _counter = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    print("i am here.........");
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text('sum = $_counter'),
+  _counter>=10  ? Text('I am greater or equal to 10')
+                  :
+  (_counter>=5 ? Text('greater than 5'):Text('Its less than 5')),
+              ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _counter++;
+                    });
+                  },
+                  child: const Text('Add'))
+            ]),
+      ),
+    );
   }
 }
